@@ -1,0 +1,18 @@
+{% extends 'main_templates/base.html' %}
+
+{% block content %}
+
+    <h1>These are my tech skills</h1>
+    {% for tskill in tech_skill %}
+        <h2>{{ tskill.skill_name }}</h2>
+    {% endfor %}
+    <h1>These are my language skills</h1>
+    {% for lskill in lang_skill %}
+        <h2>{{ lskill.skill_name }}</h2>
+    {% endfor %}
+    <h1>These are my other skills</h1>
+    {% for oskill in other_skill %}
+        <h2>{{ oskill.skill_name }}</h2>
+    {% endfor %}
+
+{% endblock %}

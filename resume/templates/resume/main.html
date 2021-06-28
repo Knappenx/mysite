@@ -1,0 +1,18 @@
+{% extends 'main_templates/base.html' %}
+
+{% block content %}
+
+<div class="image-background" style='background-image: url(images/pexels-elijah-odonnell-3473569.jpg)'>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-5 d-flex justify-content-center mt-4 mb-4">
+                <img class="profile_pic rounded-circle" src="{{REPLACE}}" />
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center mt-4 mb-4">
+                <h1>{{user.user_bio}}</h1>
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock %}
