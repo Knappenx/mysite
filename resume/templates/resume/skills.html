@@ -1,18 +1,31 @@
 {% extends 'main_templates/base.html' %}
 
 {% block content %}
-
-    <h1>These are my tech skills</h1>
-    {% for tskill in tech_skill %}
-        <h2>{{ tskill.skill_name }}</h2>
+    {% for skill_item in skill_list%}
+        {% if skill_item.0.count > 0 %}
+            <div class="offset-1 col-10 mt-4 d-flex justify-content-center">
+                <h2>{{ skill_item.1 }}</h2>
+            </div>
+            <div class="offset-1 col-10 offset-md-2 col-md-8">
+                <div class="separator"></div>
+            </div>
+            <div class="offset-1 col-10 offset-md-2 col-md-8 my-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        {% for skill in skill_item.0 %}
+                            <div class="col-12 col-lg-6">
+                                <div class="container d-flex align-items-center mb-4 justify-content-center justify-content-lg-start">
+                                    <div><i class="{{ skill.skill_icon }} fa-2x me-4"></i></div>
+                                        <div>
+                                            <h3 class="job-details">{{ skill.skill_name }}</h3>
+                                            <p class="job-details">{{ skill.skill_description }}</p>
+                                        </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif%}
     {% endfor %}
-    <h1>These are my language skills</h1>
-    {% for lskill in lang_skill %}
-        <h2>{{ lskill.skill_name }}</h2>
-    {% endfor %}
-    <h1>These are my other skills</h1>
-    {% for oskill in other_skill %}
-        <h2>{{ oskill.skill_name }}</h2>
-    {% endfor %}
-
 {% endblock %}

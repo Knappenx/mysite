@@ -1,3 +1,4 @@
+from django.db.models.query import EmptyQuerySet
 from django.shortcuts import render
 from .models import MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser
 
@@ -20,16 +21,23 @@ def my_education_view(request):
     }
     return render(request, 'resume/edu.html', context)
 
-def my_skills_view(request):
-    tech_skill = MySkills.objects.filter(skill_is_tech = True)
-    lang_skill = MySkills.objects.filter(skill_is_language = True)
-    other_skill = MySkills.objects.filter(skill_is_other = True)
-    soft_skill = MySkills.objects.filter(skill_is_soft = True)
+def my_work_view(request):
+    work = MyWorkExperience.objects.all()
     context = {
-        "tech_skill":tech_skill,
-        "lang_skill":lang_skill,
-        "other_skill":other_skill,
-        "soft_skill":soft_skill
+        "work": work,
+    }
+    return render(request, 'resume/work.html', context)
+
+def my_skills_view(request):
+    tech_skill = (MySkills.objects.filter(skill_is_tech = True),"Tech Skills",)
+    lang_skill = (MySkills.objects.filter(skill_is_language = True), "Languages")
+    other_skill = (MySkills.objects.filter(skill_is_other = True), "Other Skils")
+    soft_skill = (MySkills.objects.filter(skill_is_soft = True), "Soft skills")
+    skill_list = [tech_skill, lang_skill, other_skill, soft_skill]
+    context = {
+        "skill_list":skill_list,
     }
     return render(request, 'resume/skills.html', context)
 
+def my_projects_view(request):
+    return render(request, 'resume/projects.html', {})

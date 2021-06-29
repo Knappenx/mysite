@@ -1,0 +1,15 @@
+{% extends 'main_templates/base.html' %}
+
+{% block content %}
+
+    <h1>This is my Work Experience</h1>
+    {% for work_item in work %}
+        <h2>{{ work_item.employee_position }}</h2>
+        <h3>{{ work_item.company_name }}</h3>      
+        {% if work_item.current is True %}
+            <h4>From {{ work_item.start_date|date:"F Y" }} to Present</h4>
+        {% else %}
+            <h4>From {{ work_item.start_date|date:"F Y" }} to {{ work_item.end_date|date:"F Y" }}</h4>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
