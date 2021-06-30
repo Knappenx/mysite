@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class MyUser(models.Model):
@@ -12,11 +13,11 @@ class MyUser(models.Model):
 
 class MyWorkExperience(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    company_name = models.CharField('Company Name', max_length=20)
-    employee_position = models.CharField('Job Position', max_length=40)
+    inst_name = models.CharField('Company Name', max_length=20)
+    deg_or_pos = models.CharField('Job Position', max_length=40)
     company_fow = models.CharField('Field of Work',  max_length=60)
     company_url = models.URLField('Company Website',  max_length=200, blank=True)
-    company_logo = models.URLField('Company Logo URL',  max_length=200, blank=True)
+    inst_logo = models.URLField('Company Logo URL',  max_length=200, blank=True)
     location_city = models.CharField('City', max_length=25)
     location_country = models.CharField('Country', max_length=25)
     start_date = models.DateField('Start Date')
@@ -26,9 +27,9 @@ class MyWorkExperience(models.Model):
 
 class MyEducation(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    edu_degree = models.CharField('Degree', max_length=60)
-    edu_institution = models.CharField('Univeristy / Institution', max_length=60)
-    edu_logo = models.URLField('Uni/Inst logo URL', max_length=200, blank=True)
+    deg_or_pos = models.CharField('Degree', max_length=60)
+    inst_name = models.CharField('Univeristy / Institution', max_length=60)
+    inst_logo = models.URLField('Uni/Inst logo URL', max_length=200, blank=True)
     edu_url = models.URLField('Uni/Inst Website', max_length=200, blank=True)
     start_date = models.DateField('Start Date')
     end_date = models.DateField('End Date')
@@ -51,6 +52,7 @@ class MySkills(models.Model):
     skill_is_tech = models.BooleanField('Tech Skill', default=False, blank=True)
     skill_is_other = models.BooleanField('Other Skill', default=False, blank=True)
     skill_is_soft = models.BooleanField('Soft Skill', default=False, blank=True)
+    skill_is_hobby = models.BooleanField('Hobby', default=False, blank=True)
 
 class MySocial(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
@@ -58,3 +60,11 @@ class MySocial(models.Model):
     social_desc = models.CharField('Social name to display', max_length=30)
     social_url = models.URLField('Social URL', max_length=200, blank=True)
     social_icon = models.CharField('Font Awesome Icon', max_length=30, blank=True)
+
+class MyProjects(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    project_name = models.CharField('Project Name', max_length=20)
+    project_desc = models.TextField('Description', max_length=1000)
+    project_url = models.URLField('Link to project', max_length=200, blank=True)
+    project_photo = models.URLField('Preview photo link', max_length=200, blank=True)
+    project_techs = ArrayField(models.CharField(max_length=35, blank=True))

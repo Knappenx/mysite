@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="image-background" style='background-image: url(images/pexels-elijah-odonnell-3473569.jpg)'>
+<div class="image-background" style='background-image: url({{REPLACE}})'>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-5 d-flex justify-content-center mt-4 mb-4">
@@ -14,5 +14,16 @@
         </div>
     </div>
 </div> 
+
+{% for item in obj_list %}
+    <h2>{{item.inst_name}}</h2>
+    <h2>{{item.deg_or_pos}}</h2>
+    <h2>{{item.inst_logo}}</h2>
+    {% if item.current is True %}
+        <h2>{{item.start_date}} - Present</h2>
+    {%else%}
+        <h2>{{item.start_date}} - {{item.end_date}}</h2>
+    {%endif%}
+{%endfor%}
 
 {% endblock %}
