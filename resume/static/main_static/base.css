@@ -25,10 +25,6 @@ html{
     transform: translate(-50%, -50%);
 }
 
-.footer-icon{
-    padding: 15px;
-}
-
 .copyright-text{
     padding-bottom: 15px;
     color: #DCA24B;
@@ -41,9 +37,30 @@ h1{
     font-size: 2rem;
 }
 
+h2{
+    color: #212529;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+h3{
+    color: #212529;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+h4{
+    color: #212529;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.7rem;
+}
+
 .image-background{
     width: 100%;
-    height: 465px;
+    min-height: 465px;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -80,14 +97,9 @@ h1{
     text-align: center;    
 }
 
-.navbar-icon{
-    height: 50%;
-    width: 50%;
-}
-
 body{
-    padding-top: 94px;
-    background-color: rgb(235, 217, 169) !important;
+    padding-top: 108px;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
 }
 
 body, .navbar{
@@ -95,7 +107,8 @@ body, .navbar{
 }
 
 .navbar{
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    min-height: 108px;
 }
 
 .profile_pic{
@@ -124,15 +137,67 @@ body, .navbar{
     padding-top: 100px;
 }
 
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: rgba(101, 101, 101, 0.35);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.navbar-icon{
+    max-height: 80px;
+}
+
+.myButton {
+	background-color:#dca24b;
+	border-radius:28px;
+	border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+}
+.myButton:hover {
+	background-color:#ba851c;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.body-anchor{
+    text-decoration: none;
+    color: #DCA24B;
+}
+
+.body-anchor:hover{
+    text-decoration: none;
+    color: rgb(41, 131, 143);
+}
+
+.mobilesOnly{
+    visibility:hidden;
+}
+
 @media (max-width:1475px) {
     .education-card{
         width: 100%;
+    }
+    .navbar-icon{
+        max-height: 80px;
     }
 }
 
 @media (max-width:1100px) {
     .profession-card{
         width: 100%;
+    }
+    .navbar{
+        font-size: 1.3rem;
+        min-height: 108px;
     }
 }
 
@@ -143,18 +208,35 @@ body, .navbar{
     .location{
         text-align: center;
     }
+    .navbar-icon{
+        max-height: 65px;
+    }
 }
 
 @media (max-width:765px) {
     .image-background{
-        height: 740px;
+        min-height: 740px;
     }
     .profession-card{
         width: 90%;
     }
+    .navbar{
+        font-size: 1.5rem;
+        min-height: 80px;
+    }
+    body{
+        padding-top: 80px;
+    }
 }
 
 @media (max-width:991px) {
+    .navbar{
+        font-size: 1.5rem;
+        min-height: 80px;
+    }
+    body{
+        padding-top: 80px;
+    }
     .profile-picture{
         height: 70%;
         width: 70%
@@ -162,17 +244,22 @@ body, .navbar{
     .card{
         width: 90%;
     }
-
 }
 
 @media (max-width:1400px) {
     .education-card{
         width: 90%;
     }
-
 }
 
 @media (max-width:575px) {
+    .navbar{
+        font-size: 1.5rem;
+        min-height: 80px;
+    }
+    body{
+        padding-top: 80px;
+    }
     h2{
         font-size: 1.6rem;
     }
@@ -191,6 +278,13 @@ body, .navbar{
 }
 
 @media (max-width:475px) {
+    .navbar{
+        font-size: 1.5rem;
+        min-height: 80px;
+    }
+    body{
+        padding-top: 80px;
+    }
     .logo{
       width: 55px;
       height: 55px;  
@@ -202,7 +296,7 @@ body, .navbar{
     }
 
     .image-background{
-        height: 475px;
+        min-height: 475px;
     } 
 
     .card{

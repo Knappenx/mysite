@@ -2,8 +2,10 @@ from django.db.models.query import EmptyQuerySet
 from django.shortcuts import render
 from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser
 user = MyUser.objects.get(id=1)
+social = MySocial.objects.all()
 # Create your views here.
 def my_main_view(request):
+    
     work = MyWorkExperience.objects.all().order_by("end_date")
     edu = MyEducation.objects.all().order_by("end_date")
     wk_list = [item for item in work]
@@ -13,22 +15,29 @@ def my_main_view(request):
     context = {
         "user":user,
         "obj_list": obj_list,
+        "social": social,
     }
     return render(request, 'resume/main.html', context)
 
 def my_education_view(request):
-    edu = MyEducation.objects.all()
+    all_edu = MyEducation.objects.all()
+    edu = [item for item in all_edu]
+    edu.sort(key=lambda x: x.start_date, reverse=True)
     context = {
         "edu": edu,
         "user":user,
+        "social": social,
     }
     return render(request, 'resume/edu.html', context)
 
 def my_work_view(request):
-    work = MyWorkExperience.objects.all()
+    all_work = MyWorkExperience.objects.all()
+    work = [item for item in all_work]
+    work.sort(key=lambda x: x.start_date, reverse=True)
     context = {
         "work": work,
         "user":user,
+        "social": social,
     }
     return render(request, 'resume/work.html', context)
 
@@ -42,12 +51,13 @@ def my_skills_view(request):
     context = {
         "skill_list":skill_list,
         "user":user,
+        "social": social,
     }
     return render(request, 'resume/skills.html', context)
 
 def my_projects_view(request):
     projects = MyProjects.objects.all()
-    return render(request, 'resume/projects.html', {'projects':projects,"user":user})
+    return render(request, 'resume/projects.html', {'projects':projects,"user":user, "social": social,})
 
 def my_footer_view(request):
     user = MyUser.objects.get(id=1)
