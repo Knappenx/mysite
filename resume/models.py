@@ -10,6 +10,7 @@ class MyUser(models.Model):
     user_bio = models.TextField('Bio', max_length=1000)
     user_job_title = models.CharField('Job Title', max_length=50)
     user_email = models.EmailField('Email', max_length= 100)
+    user_phone = models.CharField('Mobile', max_length= 20, default="x", blank=True)
 
 class MyWorkExperience(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
@@ -60,11 +61,13 @@ class MySocial(models.Model):
     social_desc = models.CharField('Social name to display', max_length=30)
     social_url = models.URLField('Social URL', max_length=200, blank=True)
     social_icon = models.CharField('Font Awesome Icon', max_length=30, blank=True)
+    social_is_contact = models.BooleanField('Contact info', default=False)
 
 class MyProjects(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     project_name = models.CharField('Project Name', max_length=20)
     project_desc = models.TextField('Description', max_length=1000)
-    project_url = models.URLField('Link to project', max_length=200, blank=True)
+    project_code_url = models.URLField('Link to project', max_length=200, blank=True)
+    project_live_url = models.URLField('Link to live page', max_length=200, blank=True)
     project_photo = models.URLField('Preview photo link', max_length=200, blank=True)
     project_techs = ArrayField(models.CharField(max_length=35, blank=True))

@@ -1,22 +1,35 @@
-<div class="bg-dark container-fluid footer">
-    <div class="row align-items-center justify-content-center">
-        <div class="d-flex align-items-center justify-content-center col-md-8 mt-2">
-            <a class="footer-icon" href="{{REPLACE}}" target="_blank" rel="noopener noreferrer"><i class="{{REPLACE}}"></i></a>
-            <a class="footer-icon" href="{{REPLACE}}" target="_blank" rel="noopener noreferrer"><i class="{{REPLACE}}"></i></a>
-        </div>
-    </div>
-    <div class="row align-items-center justify-content-center mt-2">
+<div class="bg-dark container-fluid">
+    <div class="row align-items-center justify-content-center my-4">
         <div class="col-8 mb-2">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12 col-lg-6 text-center copyright-text d-flex align-items-center justify-content-center">
-                        <i class="fas fa-phone fa-2x mx-2"></i>
-                        <p class="mt-3">{{REPLACE}}</p>
-                    </div>
-                    <div class="col-12 col-lg-6 text-center copyright-text d-flex align-items-center justify-content-center">
-                            <i class="fas fa-envelope fa-2x mx-2"></i>
-                            <p class="mt-3">{{REPLACE}}</p>
-                    </div>                     
+                    <div class="col-12 col-lg-6 text-left copyright-text mt-4">
+                        <h5>Contact information:</h5>
+                        <div class="col-12 text-left copyright-text d-flex align-items-center m-0">
+                            <a class="footer-icon" href="mailto:{{user.user_email}}" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope-square fa-2x mx-2"></i></a>
+                            <h6 class="mt-2"><a class="footer-icon" href="mailto:{{user.user_email}}" target="_blank" rel="noopener noreferrer">{{user.user_email}}</a></h6>                      
+                        </div>
+                        <div class="col-12 text-left copyright-text d-flex align-items-center m-0">
+                            <a class="footer-icon" href="{{user.user_phone}}" target="_blank" rel="noopener noreferrer"><i class="fas fa-phone-square fa-2x mx-2"></i></a>
+                            <h6 class="mt-2"><a class="footer-icon" href="tel:{{user.user_phone}}" target="_blank" rel="noopener noreferrer">{{user.user_phone}}</a></h6>                      
+                        </div>    
+                        {% for social_item in social %}
+                            {% if social_item.social_is_contact is True %}
+                                <div class="col-12 text-left copyright-text d-flex align-items-center m-0">
+                                    <a class="footer-icon" href="{{social_item.social_url}}" target="_blank" rel="noopener noreferrer"><i class="{{social_item.social_icon}} fa-2x mx-2"></i></a>
+                                    <h6 class="mt-2"><a class="footer-icon" href="{{social_item.social_url}}" target="_blank" rel="noopener noreferrer">{{social_item.social_desc}}</a></h6>                      
+                                </div>    
+                        {% endif %}
+                    {% endfor %}
+                    </div>  
+                    <div class="col-12 col-lg-6 text-left copyright-text mt-4">
+                        <h5>Social:</h5>
+                        {% for social_item in social %}
+                            {% if social_item.social_is_contact is False %}
+                                    <a class="footer-icon" href="{{social_item.social_url}}" target="_blank" rel="noopener noreferrer"><i class="{{social_item.social_icon}} fa-2x mx-2"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>   
                 </div>
             </div>
             <div class="row">
