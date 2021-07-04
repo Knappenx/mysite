@@ -11,6 +11,12 @@ class MyUser(models.Model):
     user_job_title = models.CharField('Job Title', max_length=50)
     user_email = models.EmailField('Email', max_length= 100)
     user_phone = models.CharField('Mobile', max_length= 20, default="x", blank=True)
+    user_to_display = models.BooleanField('Show user cv', null=True, default=None, unique=True)
+
+    def save(self, *args, **kwargs):
+        if self.user_to_display is False:
+            self.user_to_display = None
+        super(MyUser, self).save(*args, **kwargs)
 
 class MyWorkExperience(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
