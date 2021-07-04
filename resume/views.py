@@ -1,7 +1,11 @@
 from django.db.models.query import EmptyQuerySet
 from django.shortcuts import render
 from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser
-user = MyUser.objects.get(id=1)
+
+try:
+    user = MyUser.objects.get(user_to_display=True)
+except:
+    user = MyUser.objects.all()    
 social = MySocial.objects.all()
 # Create your views here.
 def my_main_view(request):
