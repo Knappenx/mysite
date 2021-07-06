@@ -1,15 +1,87 @@
 {% extends 'main_templates/base.html' %}
 
 {% block content %}
-
-    <h1>This is my Education</h1>
+    <h2 class="my-4">My Education</h2>
+    <div class="offset-1 offset-md-2 col-md-8 col-10 my-4">
+        <div class="separator"></div>
+    </div>
     {% for edu_item in edu %}
-        <h2>{{ edu_item.edu_degree }}</h2>
-        <h3>{{ edu_item.edu_institution }}</h3>      
-        {% if edu_item.current is True %}
-            <h4>From {{ edu_item.start_date|date:"F Y" }} to Present</h4>
-        {% else %}
-            <h4>From {{ edu_item.start_date|date:"F Y" }} to {{ edu_item.end_date|date:"F Y" }}</h4>
+        <div class="row">
+            <div class="offset-md-2 col-md-3 d-flex align-items-center justify-content-md-start justify-content-center my-2">
+                <img class="img-fluid" src="{{ edu_item.inst_logo }}" />
+            </div>
+            <div class="col-md-5 d-flex flex-column justify-content-md-start justify-content-center my-2">
+                <h2 class="text-center text-md-start">{{ edu_item.deg_or_pos }}</h2>
+                <div class="d-flex justify-content-md-start justify-content-center">
+                    <h3 class="text-center text-md-start">at {{ edu_item.inst_name }}.</h3>
+                    {% if edu_item.edu_url %}
+                        <a class="body-anchor" href="{{edu_item.edu_url}}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
+                    {% endif %}    
+                </div>
+                {% if edu_item.current is True %}
+                    <h4 class="text-center text-md-start">From {{ edu_item.start_date|date:"F Y" }} to Present</h4>
+                {% else %}
+                    <h4 class="text-center text-md-start">From {{ edu_item.start_date|date:"F Y" }} to {{ edu_item.end_date|date:"F Y" }}</h4>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-1 offset-md-2 col-10 col-md-4">
+                <div class="col-12 d-flex justify-content-md-start justify-content-center">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-1 offset-md-2 col-10 col-md-8">
+                <h4 class="text-start">{% for letter in edu_item.activities %}{%if letter == "." %}<br>{% else %}{{ letter }}{% endif %}{% endfor %}</h4>
+            </div>
+        </div>    
+        {% if not forloop.last %}
+            <div class="container-fluid my-4">
+                <div class="row">
+                    <div class=" offset-md-2 col-md-3 col-5">
+                        <div class="separator"></div>
+                    </div>
+                    <div class="col-2 d-flex justify-content-center">
+                        <span class="dot"></span>
+                    </div>
+                    <div class="col-md-3 col-5">
+                        <div class="separator"></div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     {% endfor %}
+
+    {% if certificates.count > 0 %}
+        <h2 class="my-4">My Certificates</h2>
+        <div class="offset-1 offset-md-2 col-md-8 col-10 my-4">
+            <div class="separator"></div>
+        </div>
+        <div class="offset-1 col-10 offset-md-2 col-md-8 my-4">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for cert in certificates %}
+                        <div class="col-12 col-lg-6">
+                            <div class="container d-flex align-items-center mb-4 justify-content-center justify-content-lg-start">
+                                <div><i class="{{ cert.certificate_icon }} fa-3x me-4"></i></div>
+                                    <div>
+                                        <h3 class="job-details">{{ cert.certificate }}</h3>
+                                        {% if cert.certificate_desc %}
+                                            <h4 class="job-details">{{ cert.certificate_desc }}</h4>
+                                        {% endif %}
+                                        {% if cert.certificate_institution %}
+                                            <p class="job-details">From {{ cert.certificate_institution }}</p>
+                                        {% endif %}
+                                    </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif%}
+
+
 {% endblock %}
