@@ -7,9 +7,9 @@ try:
 except:
     user = MyUser.objects.all()    
 social = MySocial.objects.all()
+
 # Create your views here.
 def my_main_view(request):
-    
     work = MyWorkExperience.objects.all().order_by("end_date")
     edu = MyEducation.objects.all().order_by("end_date")
     wk_list = [item for item in work]
@@ -24,24 +24,30 @@ def my_main_view(request):
     return render(request, 'resume/main.html', context)
 
 def my_education_view(request):
-    all_edu = MyEducation.objects.all()
+    all_edu = MyEducation.objects.all().order_by("end_date")
+    certificates = MyCertificates.objects.all()
     edu = [item for item in all_edu]
     edu.sort(key=lambda x: x.start_date, reverse=True)
+    page_is_active = "education"
     context = {
         "edu": edu,
         "user":user,
         "social": social,
+        "page_is_active": page_is_active,
+        "certificates": certificates,
     }
     return render(request, 'resume/edu.html', context)
 
 def my_work_view(request):
-    all_work = MyWorkExperience.objects.all()
+    all_work = MyWorkExperience.objects.all().order_by("end_date")
     work = [item for item in all_work]
     work.sort(key=lambda x: x.start_date, reverse=True)
+    page_is_active = "professional"
     context = {
         "work": work,
         "user":user,
         "social": social,
+        "page_is_active": page_is_active,
     }
     return render(request, 'resume/work.html', context)
 
@@ -52,16 +58,25 @@ def my_skills_view(request):
     soft_skill = (MySkills.objects.filter(skill_is_soft = True), "Soft skills")
     hobby_skill = (MySkills.objects.filter(skill_is_hobby = True), "Hobbies")
     skill_list = [tech_skill, lang_skill, other_skill, soft_skill, hobby_skill]
+    page_is_active = "skills"
     context = {
         "skill_list":skill_list,
         "user":user,
         "social": social,
+        "page_is_active": page_is_active,
     }
     return render(request, 'resume/skills.html', context)
 
 def my_projects_view(request):
     projects = MyProjects.objects.all()
-    return render(request, 'resume/projects.html', {'projects':projects,"user":user, "social": social,})
+    page_is_active = "projects"
+    context = {
+        'projects':projects,
+        "user": user, 
+        "social": social,
+        "page_is_active": page_is_active,
+    }
+    return render(request, 'resume/projects.html', context)
 
 def my_footer_view(request):
     user = MyUser.objects.get(id=1)

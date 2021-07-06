@@ -173,6 +173,11 @@ body, .navbar{
     color: #DCA24B;
 }
 
+.separator-footer{
+    border-bottom: 3px solid #DCA24B;
+    margin-top: 10px;
+}
+
 .body-anchor:hover{
     text-decoration: none;
     color: rgb(41, 131, 143);
@@ -180,6 +185,16 @@ body, .navbar{
 
 .mobilesOnly{
     visibility:hidden;
+}
+
+.active_nav_item{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.active_nav_item:hover{
+    text-decoration: none;
+    color: whitesmoke;
 }
 
 @media (max-width:1475px) {
