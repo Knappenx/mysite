@@ -46,7 +46,7 @@
         </div>
         <div class="row">
             <div class="offset-1 offset-md-2 col-10 col-md-8">
-                <h4 class="text-start">{% for letter in work_item.job_description %}{%if letter == "." %}<br>{% else %}{{ letter }}{% endif %}{% endfor %}</h4>
+                <h4 class="text-start">{% for letter in work_item.job_description %}{%if letter == "." %}{{"."}}<br>{% else %}{{ letter }}{% endif %}{% endfor %}</h4>
             </div>
         </div>    
 

@@ -2,28 +2,48 @@
 
 {% block content %}
 
-<h1>My projects</h1>
+<h2>My projects</h2>
+<div class="offset-1 offset-md-2 col-md-8 col-10 my-4">
+    <div class="separator"></div>
+</div>
 {% for project in projects %}
 <div class="row">
-    <div class="col-md-3 d-flex align-items-center justify-content-center my-2">
+    <div class="offset-md-2 col-md-3 d-flex align-items-center justify-content-center my-2">
         <img class="img-fluid" src="{{ project.project_photo }}" />
     </div>
-    <div class="col-md-9 d-flex flex-column justify-content-between my-2">
-        <h3 class="text-center text-md-left">{{ project.project_name }}</h3>
-        <p class="text-center text-md-left">{{ project.project_desc }}</p>
-        <div>
-        {% for tech in project.project_techs %}
-            <i class="{{tech}} fa-2x me-4"></i>
-        {% endfor %}
+    <div class="col-md-5 d-flex flex-column justify content center justify-content-md-between my-2">
+        <h3 class="text-center text-md-start">{{ project.project_name }}</h3>
+        <p class="text-center text-md-start">{{ project.project_desc }}</p>
+        <div class="d-flex justify-content-md-between justify-content-center">
+            <p class="text-center text-md-start px-4 px-md-0">Technologies:{{" "}}{% for tech in project.project_techs %}{{tech}}{% if not forloop.last %}{{", "}}{% endif %}{% endfor %}</p>            
         </div>
-        <h4><a href="{{project.project_url}}">View code</a></h4>
+        <div class="d-flex justify-content-md-start justify-content-center align-items-center text-center">
+            {% if project.project_code_url%}
+                <h6>Code: {{" "}}</h3>
+                <a class="body-anchor" href="{{project.project_code_url}}"><i class="fab fa-github fa-2x mx-4"></i></a>
+            {% endif %}
+            {% if project.project_live_url%}
+                <h6>Live: {{" "}}</h6>
+                <a class="body-anchor" href="{{project.project_live_url}}"><i class="fas fa-play-circle fa-2x mx-4"></i></a>
+            {% endif %}
+        </div>
     </div>
-    {% if not forloop.last %}
-        <div class="col-md-12">
-            <div class="separator"></div>
-        </div>
-    {% endif %}
 </div>
+{% if not forloop.last %}
+    <div class="container-fluid my-4">
+        <div class="row">
+            <div class=" offset-md-2 col-md-3 col-5">
+                <div class="separator"></div>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+                <span class="dot"></span>
+            </div>
+            <div class="col-md-3 col-5">
+                <div class="separator"></div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endfor %}
 
 

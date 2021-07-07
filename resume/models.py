@@ -77,3 +77,11 @@ class MyProjects(models.Model):
     project_live_url = models.URLField('Link to live page', max_length=200, blank=True)
     project_photo = models.URLField('Preview photo link', max_length=200, blank=True)
     project_techs = ArrayField(models.CharField(max_length=35, blank=True))
+
+class MyTemplateURLs(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    brand_icon = models.URLField('Brand icon', max_length=300, blank=True)
+    my_resume = models.URLField('Resume URL', max_length=300, blank=True)
+    profile_picture = models.URLField('profile picture', max_length=300, blank=True)
+    background_picture = models.URLField('Background image', max_length=300, blank=True)
+    whatsapp_widget = models.CharField('Whatsapp Widget', max_length=300, blank=True)

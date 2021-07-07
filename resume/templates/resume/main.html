@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<div class="image-background" style='background-image: url(https://github.com/Knappenx/Nahim_Abugannam/blob/main/images/pexels-elijah-odonnell-3473569.jpg?raw=true)'>
+<div class="image-background" style='background-image: url({{template_urls.background_picture}})'>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-5 d-flex justify-content-center mt-4 mb-4">
-                <img class="profile_pic rounded-circle" src="https://github.com/Knappenx/Nahim_Abugannam/blob/main/images/profile_pic.jpg?raw=true" />
+                <img class="profile_pic rounded-circle" src="{{template_urls.profile_picture}}" />
             </div>
             <div class="col-12 col-md-6 d-flex align-items-center mt-4 mb-4">
                 <h1>{{user.user_bio}}</h1>
@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="d-flex justify-content-center my-3">
-                <button type="button" class="myButton"  onclick="window.open('https://flowcv.io/resume/feedback/yz4OEXgJ4foB');">Resume</button>
+                <button type="button" class="myButton mx-4"  onclick="window.open('{{template_urls.my_resume}}');">Resume</button>
             </div>
         </div>
     </div>
@@ -34,7 +34,6 @@
         {%else%}
             <h4>{{item.start_date|date:"F Y"}} - {{item.end_date|date:"F Y"}}</h3>
         {%endif%}
-        <a class="body-anchor" href="{{REPLACE}}" target="_blank" rel="noopener noreferrer">Read more...</a>
     </div>
     {% if not forloop.last %}
         <div class="container-fluid my-4">
