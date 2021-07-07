@@ -1,17 +1,18 @@
 from django.db.models.query import EmptyQuerySet
 from django.shortcuts import render
-from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser
+from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser, MyTemplateURLs
 
 try:
     user = MyUser.objects.get(user_to_display=True)
 except:
-    user = MyUser.objects.all()    
-social = MySocial.objects.all()
+    user = None    
+social = MySocial.objects.filter(user=user)
+template_urls = MyTemplateURLs.objects.get(user=user)
 
 # Create your views here.
 def my_main_view(request):
-    work = MyWorkExperience.objects.all().order_by("end_date")
-    edu = MyEducation.objects.all().order_by("end_date")
+    work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
+    edu = MyEducation.objects.filter(user=user).order_by("end_date")
     wk_list = [item for item in work]
     edu_list = [item for item in edu]
     obj_list = wk_list + edu_list
@@ -20,11 +21,12 @@ def my_main_view(request):
         "user":user,
         "obj_list": obj_list,
         "social": social,
+        "template_urls": template_urls,
     }
     return render(request, 'resume/main.html', context)
 
 def my_education_view(request):
-    all_edu = MyEducation.objects.all().order_by("end_date")
+    all_edu = MyEducation.objects.filter(user=user).order_by("end_date")
     certificates = MyCertificates.objects.all()
     edu = [item for item in all_edu]
     edu.sort(key=lambda x: x.start_date, reverse=True)
@@ -35,11 +37,12 @@ def my_education_view(request):
         "social": social,
         "page_is_active": page_is_active,
         "certificates": certificates,
+        "template_urls": template_urls,
     }
     return render(request, 'resume/edu.html', context)
 
 def my_work_view(request):
-    all_work = MyWorkExperience.objects.all().order_by("end_date")
+    all_work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
     work = [item for item in all_work]
     work.sort(key=lambda x: x.start_date, reverse=True)
     page_is_active = "professional"
@@ -48,6 +51,7 @@ def my_work_view(request):
         "user":user,
         "social": social,
         "page_is_active": page_is_active,
+        "template_urls": template_urls,
     }
     return render(request, 'resume/work.html', context)
 
@@ -64,23 +68,18 @@ def my_skills_view(request):
         "user":user,
         "social": social,
         "page_is_active": page_is_active,
+        "template_urls": template_urls,
     }
     return render(request, 'resume/skills.html', context)
 
 def my_projects_view(request):
-    projects = MyProjects.objects.all()
+    projects = MyProjects.objects.filter(user=user)
     page_is_active = "projects"
     context = {
         'projects':projects,
         "user": user, 
         "social": social,
         "page_is_active": page_is_active,
+        "template_urls": template_urls,
     }
     return render(request, 'resume/projects.html', context)
-
-def my_footer_view(request):
-    user = MyUser.objects.get(id=1)
-    context = {
-        'user':user,
-    }
-    return render(request, 'main_templates/footer.html', context)
