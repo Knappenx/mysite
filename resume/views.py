@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser, MyTemplateURLs
 
 
-def inicialization():
+def initialization():
     try:
         user = MyUser.objects.get(user_to_display=True)
         social = MySocial.objects.filter(user=user)
