@@ -17,7 +17,7 @@ def initialization():
 
 # Create your views here.
 def my_main_view(request):
-    user, social, template_urls = inicialization()
+    user, social, template_urls = initialization()
     work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
     edu = MyEducation.objects.filter(user=user).order_by("end_date")
     wk_list = [item for item in work]
@@ -33,7 +33,7 @@ def my_main_view(request):
     return render(request, 'resume/main.html', context)
 
 def my_education_view(request):
-    user, social, template_urls = inicialization()
+    user, social, template_urls = initialization()
     all_edu = MyEducation.objects.filter(user=user).order_by("end_date")
     certificates = MyCertificates.objects.all()
     edu = [item for item in all_edu]
