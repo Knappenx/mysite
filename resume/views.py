@@ -50,7 +50,7 @@ def my_education_view(request):
     return render(request, 'resume/edu.html', context)
 
 def my_work_view(request):
-    user, social, template_urls = inicialization()
+    user, social, template_urls = initialization()
     all_work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
     work = [item for item in all_work]
     work.sort(key=lambda x: x.start_date, reverse=True)
@@ -65,7 +65,7 @@ def my_work_view(request):
     return render(request, 'resume/work.html', context)
 
 def my_skills_view(request):
-    user, social, template_urls = inicialization()
+    user, social, template_urls = initialization()
     tech_skill = (MySkills.objects.filter(skill_is_tech = True),"Tech Skills",)
     lang_skill = (MySkills.objects.filter(skill_is_language = True), "Languages")
     other_skill = (MySkills.objects.filter(skill_is_other = True), "Other Skils")
