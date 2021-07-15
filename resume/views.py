@@ -2,15 +2,22 @@ from django.db.models.query import EmptyQuerySet
 from django.shortcuts import render
 from .models import MyProjects, MySocial, MySkills, MyCertificates, MyEducation, MyWorkExperience, MyUser, MyTemplateURLs
 
-try:
-    user = MyUser.objects.get(user_to_display=True)
-except:
-    user = None    
-social = MySocial.objects.filter(user=user)
-template_urls = MyTemplateURLs.objects.get(user=user)
+
+def inicialization():
+    try:
+        user = MyUser.objects.get(user_to_display=True)
+        social = MySocial.objects.filter(user=user)
+        template_urls = MyTemplateURLs.objects.get(user=user)
+        return user, social, template_urls
+    except:
+        user = None
+        social = None
+        template_urls = None
+        return user, social, template_urls
 
 # Create your views here.
 def my_main_view(request):
+    user, social, template_urls = inicialization()
     work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
     edu = MyEducation.objects.filter(user=user).order_by("end_date")
     wk_list = [item for item in work]
@@ -26,6 +33,7 @@ def my_main_view(request):
     return render(request, 'resume/main.html', context)
 
 def my_education_view(request):
+    user, social, template_urls = inicialization()
     all_edu = MyEducation.objects.filter(user=user).order_by("end_date")
     certificates = MyCertificates.objects.all()
     edu = [item for item in all_edu]
@@ -42,6 +50,7 @@ def my_education_view(request):
     return render(request, 'resume/edu.html', context)
 
 def my_work_view(request):
+    user, social, template_urls = inicialization()
     all_work = MyWorkExperience.objects.filter(user=user).order_by("end_date")
     work = [item for item in all_work]
     work.sort(key=lambda x: x.start_date, reverse=True)
@@ -56,6 +65,7 @@ def my_work_view(request):
     return render(request, 'resume/work.html', context)
 
 def my_skills_view(request):
+    user, social, template_urls = inicialization()
     tech_skill = (MySkills.objects.filter(skill_is_tech = True),"Tech Skills",)
     lang_skill = (MySkills.objects.filter(skill_is_language = True), "Languages")
     other_skill = (MySkills.objects.filter(skill_is_other = True), "Other Skils")
@@ -73,6 +83,7 @@ def my_skills_view(request):
     return render(request, 'resume/skills.html', context)
 
 def my_projects_view(request):
+    user, social, template_urls = inicialization()
     projects = MyProjects.objects.filter(user=user)
     page_is_active = "projects"
     context = {
